@@ -8,6 +8,8 @@
 #include "G4ParticleDefinition.hh"
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
+#include "G4Event.hh"
+
 //------------------------------------------------------------------------------
 CSCPrimaryGeneratorAction::CSCPrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction(),
@@ -24,18 +26,26 @@ CSCPrimaryGeneratorAction::CSCPrimaryGeneratorAction()
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
   fParticleGun->SetParticlePosition( G4ThreeVector(0.,0.,-1999.5*mm) );
   fParticleGun->SetParticleEnergy(1000.*MeV);
+  ev_id=0;
+  myGEN .open( "gen.data" , std::ios::trunc);
 }
 //------------------------------------------------------------------------------
-CSCPrimaryGeneratorAction::~CSCPrimaryGeneratorAction(){ delete fParticleGun; }
+CSCPrimaryGeneratorAction::~CSCPrimaryGeneratorAction(){
+myGEN.close();
+delete fParticleGun;
+}
 //------------------------------------------------------------------------------
 void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   //this function is called at the begining of ecah event
-  fAlpha = CLHEP::RandGauss::shoot(0,0.003);
+
+  fAlpha = 0.; sinAlpha = 0.; cosAlpha = 1.; psi = 0.;
+
+/*fAlpha = CLHEP::RandGauss::shoot(0,0.003);
   fAlpha = std::sqrt(fAlpha*fAlpha);
   sinAlpha = std::sin(fAlpha);
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
-  psi = G4UniformRand()*2.*3.14159265;
+  psi = G4UniformRand()*2.*3.14159265;*/
 
   do{
     fVx = G4UniformRand();
@@ -43,8 +53,15 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   }
   while (fVx*fVx + fVy*fVy > 1);
 
+
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),cosAlpha));
-  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*mm,fVy*mm,-1999.5*mm) );
+  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,-1999.5*mm) );
+
+  if(myGEN.is_open())
+       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " -1999.5 "
+             << sinAlpha*std::cos(psi) << " " << sinAlpha*std::sin(psi) << " " << cosAlpha << " 1000. " << G4endl;
+
+  ev_id++;
   fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 //------------------------------------------------------------------------------

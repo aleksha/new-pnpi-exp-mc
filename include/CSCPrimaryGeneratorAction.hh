@@ -5,6 +5,11 @@
 #include "G4ParticleGun.hh"
 #include "globals.hh"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
 class G4ParticleGun;
 class G4Event;
 //class G4Box;
@@ -24,6 +29,7 @@ class CSCPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
     const G4ParticleGun* GetParticleGun() const { return fParticleGun; }
 
   private:
+    std::ofstream myGEN;
     G4ParticleGun*  fParticleGun; // pointer a to G4 gun class
     G4double fAlpha;
     G4double psi;
@@ -31,6 +37,7 @@ class CSCPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
     G4double cosAlpha;
     G4double fVx;
     G4double fVy;
+    int ev_id;
 //    G4Box* fEnvelopeBox;
 };
 //------------------------------------------------------------------------------

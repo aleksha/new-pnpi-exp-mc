@@ -142,7 +142,7 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
              << tr_px     << " " << tr_py     << " " << tr_pz     << " " << tr_m
              << G4endl;
 */
-    if(myCSC.is_open() && vol>-1 && vol<18)
+    if(myCSC.is_open() && vol>-1 && vol<12 && tr_id==1) // only beam protons in CSC
        myCSC << ev_id     << " " << tr_id     << " " << st_id     << " " << vol  << " "
              << p_code    << " " << tr_c      << " " << tr_e << " "
              << tr_pre_x  << " " << tr_pre_y  << " " << tr_pre_z  << " " << g_pre_time  << " "
