@@ -22,6 +22,7 @@ CSCPrimaryGeneratorAction::CSCPrimaryGeneratorAction()
   G4ParticleDefinition* particle = particleTable->FindParticle(particleName="proton");
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
+  fParticleGun->SetParticlePosition( G4ThreeVector(0.,0.,-1999.5*mm) );
   fParticleGun->SetParticleEnergy(1000.*MeV);
 }
 //------------------------------------------------------------------------------
@@ -30,7 +31,20 @@ CSCPrimaryGeneratorAction::~CSCPrimaryGeneratorAction(){ delete fParticleGun; }
 void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   //this function is called at the begining of ecah event
-  fParticleGun->SetParticlePosition( G4ThreeVector(0,0,-1999.5*mm) );
+  fAlpha = CLHEP::RandGauss::shoot(0,0.003);
+  fAlpha = std::sqrt(fAlpha*fAlpha);
+  sinAlpha = std::sin(fAlpha);
+  cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
+  psi = G4UniformRand()*2.*3.14159265;
+
+  do{
+    fVx = G4UniformRand();
+    fVy = G4UniformRand();
+  }
+  while (fVx*fVx + fVy*fVy > 1);
+
+  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),cosAlpha));
+  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*mm,fVy*mm,-1999.5*mm) );
   fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 //------------------------------------------------------------------------------

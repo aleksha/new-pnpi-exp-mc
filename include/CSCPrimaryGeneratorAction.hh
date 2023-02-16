@@ -25,6 +25,12 @@ class CSCPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 
   private:
     G4ParticleGun*  fParticleGun; // pointer a to G4 gun class
+    G4double fAlpha;
+    G4double psi;
+    G4double sinAlpha;
+    G4double cosAlpha;
+    G4double fVx;
+    G4double fVy;
 //    G4Box* fEnvelopeBox;
 };
 //------------------------------------------------------------------------------
