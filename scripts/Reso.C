@@ -15,8 +15,8 @@ using namespace std;
 int ev, ev_g, vol, tr, st, code, c;
 double E, xi, yi, zi, ti, x, y, z, t;
 double px, py, pz, p;
-double xx[12],yy[12],zz[12];
-double xr[12],yr[12],zr[12];
+double xx[18],yy[18],zz[18];
+double xr[18],yr[18],zr[18];
 
 double ax,bx,ay,by;
 TVector3 rTrack,iTrack,Temp,v0,v1;
@@ -25,7 +25,7 @@ TH1F *h_ang;
 TH1F *h_lng;
 
 void create_output(){
-  for(int ii=0;ii<12;ii++){xr[ii]=xx[ii]; yr[ii]=yy[ii]; zr[ii]=zz[ii];}
+  for(int ii=14;ii<18;ii++){xr[ii]=xx[ii]; yr[ii]=yy[ii]; zr[ii]=zz[ii];}
 }
 
 double wire_pos(double x){
@@ -35,7 +35,7 @@ double wire_pos(double x){
 }
 
 void create_wire_output(){
-  for(int ii=0;ii<12;ii++){
+  for(int ii=14;ii<18;ii++){
     xr[ii]=wire_pos( xx[ii] );
     yr[ii]=wire_pos( yy[ii] );
     zr[ii]=zz[ii];
@@ -56,11 +56,19 @@ void reco_plane( int i ){
   rTrack = (v1-v0).Unit();
 }
 
-void CSC(){
+void reco_angle( TVector3 vtx, int i ){
+  ax = (xr[i]-vtx.x())/(zr[i]-vtx.z());
+  ay = (yr[i]-vtx.y())/(zr[i]-vtx.z());
+  bx = (zr[i]*vtx.x()-vtx.z()*xr[i])/(zr[i]-vtx.z());
+  by = (zr[i]*vtx.y()-vtx.z()*yr[i])/(zr[i]-vtx.z());
+  v0.SetXYZ( lin(0,ax,bx), lin(0,ay,by), 0.);
+  v1.SetXYZ( lin(1,ax,bx), lin(1,ay,by), 1.);
+  rTrack = (v1-v0).Unit();
+}
 
-  h_ang = new TH1F("h_ang",";resolution, mrad;events", 500, 0, 10 );
-  h_lng = new TH1F("h_lng",";resolution, mrad;events", 500, 0, 10 );
-  h_lng->SetLineColor(2);
+void Reso(){
+
+  h_ang = new TH1F("h_ang",";resolution, mrad;events", 200, -10, 10 );
 
   std::ifstream fCSC("./csc.data" , std::ios::in);
   std::ifstream fGEN("./gen.data" , std::ios::in);
@@ -70,6 +78,8 @@ void CSC(){
   int EVENT = 0;
 
   bool good_event = true;
+  TVector3 vtx(0,0,-430.5);
+  double true_ang=0.52*0.5236;
 
   while( fCSC >> ev >> tr >> st >> vol >> code >> c >> E >> x >> y >> z >> t ){
 
@@ -79,20 +89,21 @@ void CSC(){
 
       iTrack.SetXYZ(px,py,pz);
 
-      for(int ii=0;ii<12;ii++){ if(xx[ii]==-100.) good_event=false;}
+      for(int ii=14;ii<18;ii++){ if(xx[ii]==-100.) good_event=false;}
 
-      if(good_event){
+//      if(good_event){
 //        create_output();
         create_wire_output();
-        reco_plane(  7 ); h_ang->Fill( rTrack.Angle(iTrack)*1000. );
-        reco_plane( 11 ); h_lng->Fill( rTrack.Angle(iTrack)*1000. );
-      }
+        reco_angle( vtx, 17 );
+        //cout << rTrack.Theta() << "\n";
+        h_ang->Fill( (rTrack.Theta()-true_ang)*1000. );
+//      }
 
-      for(int ii=0;ii<12;ii++){xx[ii]=-100.;yy[ii]=-100;zz[ii]=-100.;}
+      for(int ii=14;ii<18;ii++){xx[ii]=-100.;yy[ii]=-100;zz[ii]=-100.;}
       EVENT = ev; good_event=true;
     }
 
-    if(vol<12){ xx[vol]=x; yy[vol]=y; zz[vol]=z; }
+    if(vol>14 && vol<18){ xx[vol]=x; yy[vol]=y; zz[vol]=z; }
 
   }
 
@@ -100,5 +111,6 @@ void CSC(){
   fGEN.close();
 
   h_ang->Draw();
-  h_lng->Draw("same");
+  cout << h_ang->GetRMS() << "\n";
+//  h_lng->Draw("same");
 }

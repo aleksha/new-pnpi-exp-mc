@@ -33,7 +33,7 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
 {
   if ( !fLV00 || !fLV01 || !fLV02 || !fLV03 || !fLV04 ||
                  !fLV05 || !fLV06 || !fLV07 || !fLV08 || !fLV09 ||
-       !fLV10 || !fLV11 || !fLV12 || !fLV13  ){
+       !fLV10 || !fLV11 || !fLV12 || !fLV13 || !fLV14 || !fLV15 || !fLV16 || !fLV17 ){
 
     const CSCDetectorConstruction* detectorConstruction
       = static_cast<const CSCDetectorConstruction*>
@@ -142,7 +142,7 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
              << tr_px     << " " << tr_py     << " " << tr_pz     << " " << tr_m
              << G4endl;
 */
-    if(myCSC.is_open() && vol>-1 && vol<12 && tr_id==1) // only beam protons in CSC
+    if(myCSC.is_open() && vol>-1 && vol<18 && tr_id==1) // only beam protons in CSC 
        myCSC << ev_id     << " " << tr_id     << " " << st_id     << " " << vol  << " "
              << p_code    << " " << tr_c      << " " << tr_e << " "
              << tr_pre_x  << " " << tr_pre_y  << " " << tr_pre_z  << " " << g_pre_time  << " "

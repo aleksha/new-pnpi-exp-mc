@@ -41,25 +41,30 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
 //  fAlpha = 0.; sinAlpha = 0.; cosAlpha = 1.; psi = 0.;
 
-  fAlpha = CLHEP::RandGauss::shoot(0,0.003);
+//  fAlpha = 0.4*0.5236+CLHEP::RandGauss::shoot(0,0.003);
+  fAlpha = 0.52*0.5236;
   fAlpha = std::sqrt(fAlpha*fAlpha);
   sinAlpha = std::sin(fAlpha);
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
   psi = G4UniformRand()*2.*3.14159265;
-
+/*
   do{
     fVx = G4UniformRand();
     fVy = G4UniformRand();
   }
   while (fVx*fVx + fVy*fVy > 1);
-
+*/
+  fVx=0.; fVy=0.;
 
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),cosAlpha));
-  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,-1999.5*mm) );
+  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,-430.5*mm) );
+//  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,-1999.5*mm) );
 
   if(myGEN.is_open())
-       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " -1999.5 "
+       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " -430.5 "
              << sinAlpha*std::cos(psi) << " " << sinAlpha*std::sin(psi) << " " << cosAlpha << " 1000. " << G4endl;
+//       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " -1999.5 "
+//             << sinAlpha*std::cos(psi) << " " << sinAlpha*std::sin(psi) << " " << cosAlpha << " 1000. " << G4endl;
 
   ev_id++;
   fParticleGun->GeneratePrimaryVertex(anEvent);

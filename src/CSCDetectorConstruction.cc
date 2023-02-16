@@ -393,8 +393,8 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4double  offset_scinc = -100.*mm;
   G4double  mwpc_01_base = 1000.*mm;
   G4double   tpc_1t_base =  360.*mm;
-  G4double  mwpc_1B_base = 1200.*mm;
-  G4double  mwpc_12_base = 1600.*mm;
+  G4double  mwpc_1B_base = 1600.*mm;
+  G4double  mwpc_12_base = 1800.*mm;
 
   G4double  mwpc_0_z     = -0.5*w_z + offset_mwpc ;
   G4double scinc_0_z     = mwpc_0_z + offset_scinc;
