@@ -85,7 +85,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   //Mylar->AddElement(H,4);
 
   //Gases
-  //G4Material* g_mat = nist->FindOrBuildMaterial("G4_Galactic");
+  G4Material* vacuum    = nist->FindOrBuildMaterial("G4_Galactic");
   G4Material* Air_gas   = nist->FindOrBuildMaterial("G4_AIR");
   G4Material* Ar_gas    = nist->FindOrBuildMaterial("G4_Ar");
   G4Material* He_gas    = nist->FindOrBuildMaterial("G4_He");
@@ -252,9 +252,76 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
 
 
 //  G4LogicalVolume* logicLVT00 = new G4LogicalVolume(solidLVT00, g_mat , "LVT00");
+/*
+  G4LogicalVolume* logicLV_0_s0 = new G4LogicalVolume(solidLV_0_s0, vacuum, "LV0s0");
+  G4LogicalVolume* logicLV_0_g0 = new G4LogicalVolume(solidLV_0_g0, vacuum, "LV0g0");
+  G4LogicalVolume* logicLV_0_m0 = new G4LogicalVolume(solidLV_0_m0, vacuum, "LV0m0");
+  G4LogicalVolume* logicLV_0_m1 = new G4LogicalVolume(solidLV_0_m1, vacuum, "LV0m1");
+  G4LogicalVolume* logicLV_0_a0 = new G4LogicalVolume(solidLV_0_a0, vacuum, "LV0a0");
+  G4LogicalVolume* logicLV_0_a1 = new G4LogicalVolume(solidLV_0_a1, vacuum, "LV0a1");
+  G4LogicalVolume* logicLV_0_a2 = new G4LogicalVolume(solidLV_0_a2, vacuum, "LV0a2");
+  G4LogicalVolume* logicLV_0_a3 = new G4LogicalVolume(solidLV_0_a3, vacuum, "LV0a3");
+  G4LogicalVolume* logicLV_0_c0 = new G4LogicalVolume(solidLV_0_c0, vacuum, "LV0c0");
+  G4LogicalVolume* logicLV_0_c1 = new G4LogicalVolume(solidLV_0_c1, vacuum, "LV0c1");
+  G4LogicalVolume* logicLV_0_c2 = new G4LogicalVolume(solidLV_0_c2, vacuum, "LV0c2");
+  G4LogicalVolume* logicLV_0_c3 = new G4LogicalVolume(solidLV_0_c3, vacuum, "LV0c3");
+  G4LogicalVolume* logicLV_0_c4 = new G4LogicalVolume(solidLV_0_c4, vacuum, "LV0c4");
+  G4LogicalVolume* logicLV_1_g0 = new G4LogicalVolume(solidLV_1_g0, vacuum, "LV1g0");
+  G4LogicalVolume* logicLV_1_m0 = new G4LogicalVolume(solidLV_1_m0, vacuum, "LV1m0");
+  G4LogicalVolume* logicLV_1_m1 = new G4LogicalVolume(solidLV_1_m1, vacuum, "LV1m1");
+  G4LogicalVolume* logicLV_1_a0 = new G4LogicalVolume(solidLV_1_a0, vacuum, "LV1a0");
+  G4LogicalVolume* logicLV_1_a1 = new G4LogicalVolume(solidLV_1_a1, vacuum, "LV1a1");
+  G4LogicalVolume* logicLV_1_a2 = new G4LogicalVolume(solidLV_1_a2, vacuum, "LV1a2");
+  G4LogicalVolume* logicLV_1_a3 = new G4LogicalVolume(solidLV_1_a3, vacuum, "LV1a3");
+  G4LogicalVolume* logicLV_1_c0 = new G4LogicalVolume(solidLV_1_c0, vacuum, "LV1c0");
+  G4LogicalVolume* logicLV_1_c1 = new G4LogicalVolume(solidLV_1_c1, vacuum, "LV1c1");
+  G4LogicalVolume* logicLV_1_c2 = new G4LogicalVolume(solidLV_1_c2, vacuum, "LV1c2");
+  G4LogicalVolume* logicLV_1_c3 = new G4LogicalVolume(solidLV_1_c3, vacuum, "LV1c3");
+  G4LogicalVolume* logicLV_1_c4 = new G4LogicalVolume(solidLV_1_c4, vacuum, "LV1c4");
+  G4LogicalVolume* logicLVT_s_0 = new G4LogicalVolume(solidLVT_s_0,  vacuum, "LVTs0");
+  G4LogicalVolume* logicLVT_h_0 = new G4LogicalVolume(solidLVT_h_0,  vacuum, "LVTh0");
+  G4LogicalVolume* logicLVT_a_0 = new G4LogicalVolume(solidLVT_a_0,  vacuum, "LVTa0");
+  G4LogicalVolume* logicLVS_b_0 = new G4LogicalVolume(solidLVS_b_0,  vacuum, "LVSb0");
+  G4LogicalVolume* logicLVT_k_0 = new G4LogicalVolume(solidLVT_k_0,  vacuum, "LVTk0");
+  G4LogicalVolume* logicLVT_g_0 = new G4LogicalVolume(solidLVT_g_0,  vacuum, "LVTg0");
+  G4LogicalVolume* logicLVT_c_0 = new G4LogicalVolume(solidLVT_c_0,  vacuum, "LVTc0");
+  G4LogicalVolume* logicLVT_g_1 = new G4LogicalVolume(solidLVT_g_1,  vacuum, "LVTg1");
+  G4LogicalVolume* logicLVT_k_1 = new G4LogicalVolume(solidLVT_k_1,  vacuum, "LVTk1");
+  G4LogicalVolume* logicLVT_c_1 = new G4LogicalVolume(solidLVT_c_1,  vacuum, "LVTc1");
+  G4LogicalVolume* logicLVT_a_w = new G4LogicalVolume(solidLVT_a_w,  vacuum, "LVTaw");
+  G4LogicalVolume* logicLVT_h_1 = new G4LogicalVolume(solidLVT_h_1,  vacuum, "LVTh1");
+  G4LogicalVolume* logicLVT_a_1 = new G4LogicalVolume(solidLVT_a_1,  vacuum, "LVTa1");
+  G4LogicalVolume* logicLVS_b_1 = new G4LogicalVolume(solidLVS_b_1,  vacuum, "LVSb1");
+  G4LogicalVolume* logicLVT_a_2 = new G4LogicalVolume(solidLVT_a_2, vacuum, "LVTa2");
+  G4LogicalVolume* logicLVT_s_1 = new G4LogicalVolume(solidLVT_s_1, vacuum, "LVTs1");
+  G4LogicalVolume* logicLV_B_g0 = new G4LogicalVolume(solidLV_B_g0, vacuum, "LVBg0");
+  G4LogicalVolume* logicLV_B_m0 = new G4LogicalVolume(solidLV_B_m0, vacuum, "LVBm0");
+  G4LogicalVolume* logicLV_B_m1 = new G4LogicalVolume(solidLV_B_m1, vacuum, "LVBm1");
+  G4LogicalVolume* logicLV_B_a0 = new G4LogicalVolume(solidLV_B_a0, vacuum, "LVBa0");
+  G4LogicalVolume* logicLV_B_a1 = new G4LogicalVolume(solidLV_B_a1, vacuum, "LVBa1");
+  G4LogicalVolume* logicLV_B_a2 = new G4LogicalVolume(solidLV_B_a2, vacuum, "LVBa2");
+  G4LogicalVolume* logicLV_B_a3 = new G4LogicalVolume(solidLV_B_a3, vacuum, "LVBa3");
+  G4LogicalVolume* logicLV_B_c0 = new G4LogicalVolume(solidLV_B_c0, vacuum, "LVBc0");
+  G4LogicalVolume* logicLV_B_c1 = new G4LogicalVolume(solidLV_B_c1, vacuum, "LVBc1");
+  G4LogicalVolume* logicLV_B_c2 = new G4LogicalVolume(solidLV_B_c2, vacuum, "LVBc2");
+  G4LogicalVolume* logicLV_B_c3 = new G4LogicalVolume(solidLV_B_c3, vacuum, "LVBc3");
+  G4LogicalVolume* logicLV_B_c4 = new G4LogicalVolume(solidLV_B_c4, vacuum, "LVBc4");
+  G4LogicalVolume* logicLV_2_g0 = new G4LogicalVolume(solidLV_2_g0, vacuum, "LV2g0");
+  G4LogicalVolume* logicLV_2_m0 = new G4LogicalVolume(solidLV_2_m0, vacuum, "LV2m0");
+  G4LogicalVolume* logicLV_2_m1 = new G4LogicalVolume(solidLV_2_m1, vacuum, "LV2m1");
+  G4LogicalVolume* logicLV_2_a0 = new G4LogicalVolume(solidLV_2_a0, vacuum, "LV2a0");
+  G4LogicalVolume* logicLV_2_a1 = new G4LogicalVolume(solidLV_2_a1, vacuum, "LV2a1");
+  G4LogicalVolume* logicLV_2_a2 = new G4LogicalVolume(solidLV_2_a2, vacuum, "LV2a2");
+  G4LogicalVolume* logicLV_2_a3 = new G4LogicalVolume(solidLV_2_a3, vacuum, "LV2a3");
+  G4LogicalVolume* logicLV_2_c0 = new G4LogicalVolume(solidLV_2_c0, vacuum, "LV2c0");
+  G4LogicalVolume* logicLV_2_c1 = new G4LogicalVolume(solidLV_2_c1, vacuum, "LV2c1");
+  G4LogicalVolume* logicLV_2_c2 = new G4LogicalVolume(solidLV_2_c2, vacuum, "LV2c2");
+  G4LogicalVolume* logicLV_2_c3 = new G4LogicalVolume(solidLV_2_c3, vacuum, "LV2c3");
+  G4LogicalVolume* logicLV_2_c4 = new G4LogicalVolume(solidLV_2_c4, vacuum, "LV2c4");
+  G4LogicalVolume* logicLV_2_s0 = new G4LogicalVolume(solidLV_2_s0, vacuum, "LV2s0");
+*/
 
-  G4LogicalVolume* logicLV_0_s0 = new G4LogicalVolume(solidLV_0_s0, scinc , "LV0s0");
-
+  G4LogicalVolume* logicLV_0_s0 = new G4LogicalVolume(solidLV_0_s0, scinc   , "LV0s0");
   G4LogicalVolume* logicLV_0_g0 = new G4LogicalVolume(solidLV_0_g0, MWPC_gas, "LV0g0");
   G4LogicalVolume* logicLV_0_m0 = new G4LogicalVolume(solidLV_0_m0, mylar   , "LV0m0");
   G4LogicalVolume* logicLV_0_m1 = new G4LogicalVolume(solidLV_0_m1, mylar   , "LV0m1");
@@ -267,7 +334,6 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4LogicalVolume* logicLV_0_c2 = new G4LogicalVolume(solidLV_0_c2, W_solid , "LV0c2");
   G4LogicalVolume* logicLV_0_c3 = new G4LogicalVolume(solidLV_0_c3, W_solid , "LV0c3");
   G4LogicalVolume* logicLV_0_c4 = new G4LogicalVolume(solidLV_0_c4, W_solid , "LV0c4");
-
   G4LogicalVolume* logicLV_1_g0 = new G4LogicalVolume(solidLV_1_g0, MWPC_gas, "LV1g0");
   G4LogicalVolume* logicLV_1_m0 = new G4LogicalVolume(solidLV_1_m0, mylar   , "LV1m0");
   G4LogicalVolume* logicLV_1_m1 = new G4LogicalVolume(solidLV_1_m1, mylar   , "LV1m1");
@@ -280,26 +346,22 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4LogicalVolume* logicLV_1_c2 = new G4LogicalVolume(solidLV_1_c2, W_solid , "LV1c2");
   G4LogicalVolume* logicLV_1_c3 = new G4LogicalVolume(solidLV_1_c3, W_solid , "LV1c3");
   G4LogicalVolume* logicLV_1_c4 = new G4LogicalVolume(solidLV_1_c4, W_solid , "LV1c4");
-
   G4LogicalVolume* logicLVT_s_0 = new G4LogicalVolume(solidLVT_s_0,   steel  , "LVTs0");
   G4LogicalVolume* logicLVT_h_0 = new G4LogicalVolume(solidLVT_h_0,   He_gas , "LVTh0");
   G4LogicalVolume* logicLVT_a_0 = new G4LogicalVolume(solidLVT_a_0, Al_solid , "LVTa0");
   G4LogicalVolume* logicLVS_b_0 = new G4LogicalVolume(solidLVS_b_0, Be_solid , "LVSb0");
-
   G4LogicalVolume* logicLVT_k_0 = new G4LogicalVolume(solidLVT_k_0,   kapton , "LVTk0");
   G4LogicalVolume* logicLVT_g_0 = new G4LogicalVolume(solidLVT_g_0,      G10 , "LVTg0");
   G4LogicalVolume* logicLVT_c_0 = new G4LogicalVolume(solidLVT_c_0, Cu_solid , "LVTc0");
   G4LogicalVolume* logicLVT_g_1 = new G4LogicalVolume(solidLVT_g_1,    steel , "LVTg1");
   G4LogicalVolume* logicLVT_k_1 = new G4LogicalVolume(solidLVT_k_1,   kapton , "LVTk1");
   G4LogicalVolume* logicLVT_c_1 = new G4LogicalVolume(solidLVT_c_1, Al_solid , "LVTc1");
-
   G4LogicalVolume* logicLVT_a_w = new G4LogicalVolume(solidLVT_a_w, Al_solid , "LVTaw");
   G4LogicalVolume* logicLVT_h_1 = new G4LogicalVolume(solidLVT_h_1,   He_gas , "LVTh1");
   G4LogicalVolume* logicLVT_a_1 = new G4LogicalVolume(solidLVT_a_1, Al_solid , "LVTa1");
   G4LogicalVolume* logicLVS_b_1 = new G4LogicalVolume(solidLVS_b_1, Be_solid , "LVSb1");
   G4LogicalVolume* logicLVT_a_2 = new G4LogicalVolume(solidLVT_a_2, Al_solid , "LVTa2");
   G4LogicalVolume* logicLVT_s_1 = new G4LogicalVolume(solidLVT_s_1,   steel  , "LVTs1");
-
   G4LogicalVolume* logicLV_B_g0 = new G4LogicalVolume(solidLV_B_g0, MWPC_gas, "LVBg0");
   G4LogicalVolume* logicLV_B_m0 = new G4LogicalVolume(solidLV_B_m0, mylar   , "LVBm0");
   G4LogicalVolume* logicLV_B_m1 = new G4LogicalVolume(solidLV_B_m1, mylar   , "LVBm1");
@@ -312,7 +374,6 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4LogicalVolume* logicLV_B_c2 = new G4LogicalVolume(solidLV_B_c2, W_solid , "LVBc2");
   G4LogicalVolume* logicLV_B_c3 = new G4LogicalVolume(solidLV_B_c3, W_solid , "LVBc3");
   G4LogicalVolume* logicLV_B_c4 = new G4LogicalVolume(solidLV_B_c4, W_solid , "LVBc4");
-
   G4LogicalVolume* logicLV_2_g0 = new G4LogicalVolume(solidLV_2_g0, MWPC_gas, "LV2g0");
   G4LogicalVolume* logicLV_2_m0 = new G4LogicalVolume(solidLV_2_m0, mylar   , "LV2m0");
   G4LogicalVolume* logicLV_2_m1 = new G4LogicalVolume(solidLV_2_m1, mylar   , "LV2m1");
@@ -325,8 +386,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4LogicalVolume* logicLV_2_c2 = new G4LogicalVolume(solidLV_2_c2, W_solid , "LV2c2");
   G4LogicalVolume* logicLV_2_c3 = new G4LogicalVolume(solidLV_2_c3, W_solid , "LV2c3");
   G4LogicalVolume* logicLV_2_c4 = new G4LogicalVolume(solidLV_2_c4, W_solid , "LV2c4");
-
-  G4LogicalVolume* logicLV_2_s0 = new G4LogicalVolume(solidLV_2_s0, scinc , "LV2s0");
+  G4LogicalVolume* logicLV_2_s0 = new G4LogicalVolume(solidLV_2_s0, scinc   , "LV2s0");
 
 
   G4double  offset_mwpc  =  200.*mm;
