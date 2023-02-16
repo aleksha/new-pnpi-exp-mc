@@ -122,7 +122,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
 
   G4double mylar_l    =   0.050*mm;
   G4double scinc_l    =  10.000*mm;
-  G4double mwpc_gas_l = 250.000*mm;
+  G4double mwpc_gas_l =  25.000*mm;
 
   G4double pi                  =  3.14159265;
   G4int    n_wires             = 32         ;
@@ -376,7 +376,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4ThreeVector mylar_0_pos; mylar_0_pos.set(0,0, 0.5*mylar_l - 0.5*mwpc_gas_l );
   G4ThreeVector mylar_1_pos; mylar_1_pos.set(0,0,-0.5*mylar_l + 0.5*mwpc_gas_l );
 
-  G4double anode_shift = 50.*mm;
+  G4double anode_shift = 5.*mm;
   G4ThreeVector anode_0_pos; anode_0_pos.set(0,0, 1.0*anode_shift - 0.5*mwpc_gas_l );
   G4ThreeVector anode_1_pos; anode_1_pos.set(0,0, 2.0*anode_shift - 0.5*mwpc_gas_l );
   G4ThreeVector anode_2_pos; anode_2_pos.set(0,0, 3.0*anode_shift - 0.5*mwpc_gas_l );

@@ -39,13 +39,13 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   //this function is called at the begining of ecah event
 
-  fAlpha = 0.; sinAlpha = 0.; cosAlpha = 1.; psi = 0.;
+//  fAlpha = 0.; sinAlpha = 0.; cosAlpha = 1.; psi = 0.;
 
-/*fAlpha = CLHEP::RandGauss::shoot(0,0.003);
+  fAlpha = CLHEP::RandGauss::shoot(0,0.003);
   fAlpha = std::sqrt(fAlpha*fAlpha);
   sinAlpha = std::sin(fAlpha);
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
-  psi = G4UniformRand()*2.*3.14159265;*/
+  psi = G4UniformRand()*2.*3.14159265;
 
   do{
     fVx = G4UniformRand();
