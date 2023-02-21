@@ -50,6 +50,9 @@ class CSCSteppingAction : public G4UserSteppingAction
     G4LogicalVolume* fLV15;
     G4LogicalVolume* fLV16;
     G4LogicalVolume* fLV17;
+    G4LogicalVolume* fLV18;
+    G4LogicalVolume* fLV19;
+    G4LogicalVolume* fLV20;
 
 /*    G4LogicalVolume* fLVT00;
     G4LogicalVolume* fLVT01;

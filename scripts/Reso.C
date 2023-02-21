@@ -22,6 +22,8 @@ double ax,bx,ay,by;
 TVector3 rTrack,iTrack,Temp,v0,v1;
 
 TH1F *h_ang;
+TH2F *h_Tp ;
+
 TH1F *h_lng;
 
 void create_output(){
@@ -69,6 +71,7 @@ void reco_angle( TVector3 vtx, int i ){
 void Reso(){
 
   h_ang = new TH1F("h_ang",";resolution, mrad;events", 200, -10, 10 );
+  h_Tp  = new TH2F("h_Tp" ,";angle, mrad; Tp, MeV", 30, 0, 0.3, 300, 700, 1000 );
 
   std::ifstream fCSC("./csc.data" , std::ios::in);
   std::ifstream fGEN("./gen.data" , std::ios::in);
@@ -96,8 +99,13 @@ void Reso(){
         create_wire_output();
         reco_angle( vtx, 17 );
         //cout << rTrack.Theta() << "\n";
-        h_ang->Fill( (rTrack.Theta()-true_ang)*1000. );
+//        h_ang->Fill( (rTrack.Theta()-true_ang)*1000. );
+        if( iTrack.Theta()>0.01745*0. &&  iTrack.Theta()<0.01745*1. )
+          h_ang->Fill( (rTrack.Theta()-iTrack.Theta())*1000. );
+
+        h_Tp->Fill( iTrack.Theta(), E-938.272 );
 //      }
+
 
       for(int ii=14;ii<18;ii++){xx[ii]=-100.;yy[ii]=-100;zz[ii]=-100.;}
       EVENT = ev; good_event=true;
@@ -111,6 +119,6 @@ void Reso(){
   fGEN.close();
 
   h_ang->Draw();
-  cout << h_ang->GetRMS() << "\n";
+  cout << h_ang->GetRMS() << " " << h_ang->GetRMSError()  << "\n";
 //  h_lng->Draw("same");
 }

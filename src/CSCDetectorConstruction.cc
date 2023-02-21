@@ -18,7 +18,8 @@ CSCDetectorConstruction::CSCDetectorConstruction()
   fLV00(0) , fLV01(0) , fLV02(0) , fLV03(0) , fLV04(0) ,
   fLV05(0) , fLV06(0) , fLV07(0) , fLV08(0) , fLV09(0) ,
   fLV10(0) , fLV11(0) , fLV12(0) , fLV13(0) , fLV14(0) ,
-  fLV15(0) , fLV16(0) , fLV17(0) //, fLV18(0) ,
+  fLV15(0) , fLV16(0) , fLV17(0) , fLV18(0) , fLV19(0) ,
+  fLV20(0) //, fLV17(0) , fLV18(0) ,
 //  fLVT00(0), fLVT01(0), fLVT02(0), fLVT03(0), fLVT04(0),
 //  fLVT05(0), fLVT06(0), fLVT07(0), fLVT08(0), fLVT09(0),
 //  fLVT10(0), fLVT11(0), fLVT12(0), fLVT13(0), fLVT14(0),
@@ -213,7 +214,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4Tubs* solidLVT_g_1   = new G4Tubs( "LVTg1" ,      0.*mm,   g0_r_out, 0.5*grid_layer_l, 0.*deg, 360.*deg );
   G4Tubs* solidLVT_k_1   = new G4Tubs( "LVTk1" ,      0.*mm,   k1_r_out, 0.5*k0_l, 0.*deg, 360.*deg );
   G4Tubs* solidLVT_c_1   = new G4Tubs( "LVTc1" ,   k1_r_out,   g0_r_out, 0.5*c1_l, 0.*deg, 360.*deg );
-  G4Tubs* solidLVT_a_w   = new G4Tubs( "LVTaw" ,  he1_r_out,    al0_r_out, 0.5*alw_l, 0.*deg, 360.*deg );
+  G4Tubs* solidLVT_a_w   = new G4Tubs( "LVTaw" ,  al1_r_out,    al0_r_out, 0.5*alw_l, 0.*deg, 360.*deg );
   G4Tubs* solidLVT_h_1   = new G4Tubs( "LVTh1" ,      0.*mm,    he1_r_out, 0.5*he1_l, 0.*deg, 360.*deg );
   G4Tubs* solidLVT_a_1   = new G4Tubs( "LVTa1" ,  he1_r_out,    al1_r_out, 0.5*he1_l, 0.*deg, 360.*deg );
   G4Sphere* solidLVS_b_1 = new G4Sphere( "LVSb1", rBe_in, rBe_out, 0.0*deg, 360.0 *deg, 90.0*deg, 180.0*deg);
@@ -393,7 +394,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4double  offset_scinc = -100.*mm;
   G4double  mwpc_01_base = 1000.*mm;
   G4double   tpc_1t_base =  360.*mm;
-  G4double  mwpc_1B_base = 1600.*mm;
+  G4double  mwpc_1B_base = 1400.*mm;
   G4double  mwpc_12_base = 1800.*mm;
 
   G4double  mwpc_0_z     = -0.5*w_z + offset_mwpc ;
@@ -426,7 +427,7 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   new G4PVPlacement(0,alumi_0_pos, logicLVT_a_0, "LVTa0", logicWorld, false, 0, checkOverlaps);
   new G4PVPlacement(0,alumi_w_pos, logicLVT_a_w, "LVTaw", logicWorld, false, 0, checkOverlaps);
   new G4PVPlacement(0,alumi_1_pos, logicLVT_a_1, "LVTa1", logicWorld, false, 0, checkOverlaps);
-  new G4PVPlacement(0,   he_1_pos, logicLVT_h_0, "LVTh0", logicWorld, false, 0, checkOverlaps);
+  new G4PVPlacement(0,   he_1_pos, logicLVT_h_1, "LVTh1", logicWorld, false, 0, checkOverlaps);
   new G4PVPlacement(0,alumi_2_pos, logicLVT_a_2, "LVTa2", logicWorld, false, 0, checkOverlaps);
   new G4PVPlacement(0,steel_1_pos, logicLVT_s_1, "LVTs1", logicWorld, false, 0, checkOverlaps);
   new G4PVPlacement(0, mwpc_B_pos, logicLV_B_g0, "LVBg0", logicWorld, false, 0, checkOverlaps);
@@ -540,6 +541,22 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   fLV15 = logicLV_B_a1;
   fLV16 = logicLV_B_a2;
   fLV17 = logicLV_B_a3;
+
+//  fLV18 = logicLVT_c_0; // Cu cathode
+//  fLV19 = logicLVT_g_0; // G10
+//  fLV20 = logicLVT_g_1; // steel grid
+
+//  fLV18 = logicLVT_s_0; // cathode
+//  fLV19 = logicLVT_a_0; // al
+//  fLV20 = logicLVT_k_0; // kapton anode
+
+//  fLV18 = logicLVT_c_1; // cathode
+//  fLV19 = logicLVS_b_0; // Be 0
+//  fLV20 = logicLVS_b_1; // Be 1
+
+  fLV18 = logicLVT_a_2; // aluminum flange
+  fLV19 = logicLVT_s_1; // steel flange
+  fLV20 = logicLVT_a_w; // wall
 
   return physWorld;
 }

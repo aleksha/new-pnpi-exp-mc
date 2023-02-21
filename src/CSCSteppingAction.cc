@@ -14,7 +14,8 @@ CSCSteppingAction::CSCSteppingAction(CSCEventAction* eventAction)
   fLV00(0), fLV01(0), fLV02(0), fLV03(0), fLV04(0),
   fLV05(0), fLV06(0), fLV07(0), fLV08(0), fLV09(0),
   fLV10(0), fLV11(0), fLV12(0), fLV13(0), fLV14(0),
-  fLV15(0), fLV16(0), fLV17(0)//, fLV16(0)
+  fLV15(0), fLV16(0), fLV17(0), fLV18(0), fLV19(0),
+  fLV20(0)
 {
 // myOUT .open( "out.data" , std::ios::trunc);
 // myINI .open( "ini.data" , std::ios::trunc);
@@ -33,7 +34,8 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
 {
   if ( !fLV00 || !fLV01 || !fLV02 || !fLV03 || !fLV04 ||
                  !fLV05 || !fLV06 || !fLV07 || !fLV08 || !fLV09 ||
-       !fLV10 || !fLV11 || !fLV12 || !fLV13 || !fLV14 || !fLV15 || !fLV16 || !fLV17 ){
+       !fLV10 || !fLV11 || !fLV12 || !fLV13 || !fLV14 || !fLV15 ||
+       !fLV16 || !fLV17 || !fLV18 || !fLV19 || !fLV20 ){
 
     const CSCDetectorConstruction* detectorConstruction
       = static_cast<const CSCDetectorConstruction*>
@@ -57,6 +59,9 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
     fLV15 = detectorConstruction->GetLV15();
     fLV16 = detectorConstruction->GetLV16();
     fLV17 = detectorConstruction->GetLV17();
+    fLV18 = detectorConstruction->GetLV18();
+    fLV19 = detectorConstruction->GetLV19();
+    fLV20 = detectorConstruction->GetLV20();
   }
 
   // get volume of the current step
@@ -84,6 +89,9 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
   if (volume == fLV15) vol=15 ;
   if (volume == fLV16) vol=16 ;
   if (volume == fLV17) vol=17 ;
+  if (volume == fLV18) vol=18 ;
+  if (volume == fLV19) vol=19 ;
+  if (volume == fLV20) vol=20 ;
 
 //  if (vol!=0 || vol!=5 || vol!=6 || vol!=7 || vol!=8 || vol!=15) return;
 
@@ -142,7 +150,7 @@ void CSCSteppingAction::UserSteppingAction(const G4Step* step)
              << tr_px     << " " << tr_py     << " " << tr_pz     << " " << tr_m
              << G4endl;
 */
-    if(myCSC.is_open() && vol>-1 && vol<18 && tr_id==1) // only beam protons in CSC 
+    if(myCSC.is_open() && vol>13 && vol<18 && tr_id==1) // only beam protons in CSC 
        myCSC << ev_id     << " " << tr_id     << " " << st_id     << " " << vol  << " "
              << p_code    << " " << tr_c      << " " << tr_e << " "
              << tr_pre_x  << " " << tr_pre_y  << " " << tr_pre_z  << " " << g_pre_time  << " "

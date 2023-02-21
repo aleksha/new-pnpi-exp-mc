@@ -35,6 +35,9 @@ class CSCDetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume* GetLV15() const { return fLV15; }
     G4LogicalVolume* GetLV16() const { return fLV16; }
     G4LogicalVolume* GetLV17() const { return fLV17; }
+    G4LogicalVolume* GetLV18() const { return fLV18; }
+    G4LogicalVolume* GetLV19() const { return fLV19; }
+    G4LogicalVolume* GetLV20() const { return fLV20; }
 
 /*    G4LogicalVolume* GetLVT00() const { return fLVT00; }
     G4LogicalVolume* GetLVT01() const { return fLVT01; }
@@ -73,6 +76,9 @@ class CSCDetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume*  fLV15;
     G4LogicalVolume*  fLV16;
     G4LogicalVolume*  fLV17;
+    G4LogicalVolume*  fLV18;
+    G4LogicalVolume*  fLV19;
+    G4LogicalVolume*  fLV20;
 
 /*    G4LogicalVolume*  fLVT00;
     G4LogicalVolume*  fLVT01;
