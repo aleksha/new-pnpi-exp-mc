@@ -1,4 +1,5 @@
 //------------------------------------------------------------------------------
+#include "CSCConfig.hh"
 #include "CSCDetectorConstruction.hh"
 //------------------------------------------------------------------------------
 #include "G4RunManager.hh"
@@ -390,12 +391,12 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   G4LogicalVolume* logicLV_2_s0 = new G4LogicalVolume(solidLV_2_s0, scinc   , "LV2s0");
 
 
-  G4double  offset_mwpc  =  200.*mm;
-  G4double  offset_scinc = -100.*mm;
-  G4double  mwpc_01_base = 1000.*mm;
-  G4double   tpc_1t_base =  360.*mm;
-  G4double  mwpc_1B_base = 1400.*mm;
-  G4double  mwpc_12_base = 1800.*mm;
+  G4double  offset_mwpc  = MWPC_0_POS*mm;
+  G4double  offset_scinc = SCIN_0_OFFSET*mm;
+  G4double  mwpc_01_base = MWPC_01_BASE*mm;
+  G4double   tpc_1t_base = TPC_BASE*mm;
+  G4double  mwpc_1B_base = MWPC_1B_BASE*mm;
+  G4double  mwpc_12_base = MWPC_12_BASE*mm;
 
   G4double  mwpc_0_z     = -0.5*w_z + offset_mwpc ;
   G4double scinc_0_z     = mwpc_0_z + offset_scinc;
@@ -473,9 +474,9 @@ G4VPhysicalVolume* CSCDetectorConstruction::Construct()
   new G4PVPlacement(0, cathode_3_pos, logicLV_1_c3, "LV1c3", logicLV_1_g0, false, 0, checkOverlaps);
   new G4PVPlacement(0, cathode_4_pos, logicLV_1_c4, "LV1c4", logicLV_1_g0, false, 0, checkOverlaps);
 
-  G4double tpc_anode_gap    =  10.*mm;
-  G4double tpc_grid_gap     =   3.*mm;
-  G4double tpc_cathode_gap  = 216.*mm;
+  G4double tpc_anode_gap    = ANODE_POS*mm;
+  G4double tpc_grid_gap     = GRID_GAP*mm;
+  G4double tpc_cathode_gap  = DRIFT_CELL*mm;
 
   G4ThreeVector window_0_pos; window_0_pos.set(0,0, -0.5*he0_l );
   new G4PVPlacement(0,  window_0_pos , logicLVS_b_0, "LVSb0", logicLVT_h_0, false, 0, checkOverlaps);

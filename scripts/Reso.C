@@ -84,6 +84,8 @@ void Reso(){
   TVector3 vtx(0,0,-430.5);
   double true_ang=0.52*0.5236;
 
+  double ang=8.;
+
   while( fCSC >> ev >> tr >> st >> vol >> code >> c >> E >> x >> y >> z >> t ){
 
     if(ev>EVENT){
@@ -100,7 +102,7 @@ void Reso(){
         reco_angle( vtx, 17 );
         //cout << rTrack.Theta() << "\n";
 //        h_ang->Fill( (rTrack.Theta()-true_ang)*1000. );
-        if( iTrack.Theta()>0.01745*0. &&  iTrack.Theta()<0.01745*1. )
+        if( iTrack.Theta()>0.01745*ang &&  iTrack.Theta()<0.01745*(ang+1.) )
           h_ang->Fill( (rTrack.Theta()-iTrack.Theta())*1000. );
 
         h_Tp->Fill( iTrack.Theta(), E-938.272 );

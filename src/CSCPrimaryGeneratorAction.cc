@@ -1,3 +1,4 @@
+#include "CSCConfig.hh"
 #include "CSCPrimaryGeneratorAction.hh"
 #include "G4LogicalVolumeStore.hh"
 #include "G4LogicalVolume.hh"
@@ -46,8 +47,8 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   fAlpha = std::sqrt(fAlpha*fAlpha);
   sinAlpha = std::sin(fAlpha);
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
-//  psi = G4UniformRand()*2.*3.14159265;
-  psi = 0.;
+  psi = G4UniformRand()*2.*3.14159265;
+//  psi = 0.;
 /*
   do{
     fVx = G4UniformRand();
@@ -58,11 +59,11 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   fVx=0.; fVy=0.;
 
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),cosAlpha));
-  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,-430.5*mm) );
+  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,VERTEX_POS*mm) );
 //  fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,-1999.5*mm) );
 
   if(myGEN.is_open())
-       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " -430.5 "
+       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " " << VERTEX_POS << " "
              << sinAlpha*std::cos(psi) << " " << sinAlpha*std::sin(psi) << " " << cosAlpha << " 1000. " << G4endl;
 //       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " -1999.5 "
 //             << sinAlpha*std::cos(psi) << " " << sinAlpha*std::sin(psi) << " " << cosAlpha << " 1000. " << G4endl;
