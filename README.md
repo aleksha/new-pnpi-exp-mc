@@ -48,6 +48,33 @@ conda activate pres-mc
 ```
 During the analysis of MC-output-files you are expected to have `pres-mc` environment activated.
 
+## Build and run `Geant4` app
 
+```bash
+mkdir build
+cd build
+cmake -DGeant4_DIR=/home/adzyuba/miniconda3/envs/g4-mc/lib/Geant4-11.0.3/ ../
+make
+./exec_CSC run.mac
+```
+
+Edit `run.mac` to change number of generated protons.
+
+Later one can use:
+```bash
+source Run_Geant.sh
+```
+
+As an output two files will be created:
+  * `csc.data` MWPC output (see `src/CSCSteppingAction.cc`)
+  * `gen.data` primary protons (see `src/CSCPrimaryGeneratorAction.cc`)
+
+## Analyse output
+
+In `build` directory:
+```bash
+cp ../scripts/Reso.C ./
+root -l Reso.C+
+```
 
 

@@ -68,7 +68,7 @@ void reco_angle( TVector3 vtx, int i ){
   rTrack = (v1-v0).Unit();
 }
 
-void Reso(){
+void Reso(double ang=8., double delta=1.){
 
   h_ang = new TH1F("h_ang",";resolution, mrad;events", 200, -10, 10 );
   h_Tp  = new TH2F("h_Tp" ,";angle, mrad; Tp, MeV", 30, 0, 0.3, 300, 700, 1000 );
@@ -102,7 +102,7 @@ void Reso(){
         reco_angle( vtx, 17 );
         //cout << rTrack.Theta() << "\n";
 //        h_ang->Fill( (rTrack.Theta()-true_ang)*1000. );
-        if( iTrack.Theta()>0.01745*ang &&  iTrack.Theta()<0.01745*(ang+1.) )
+        if( iTrack.Theta()>0.01745*ang &&  iTrack.Theta()<0.01745*(ang+delta) )
           h_ang->Fill( (rTrack.Theta()-iTrack.Theta())*1000. );
 
         h_Tp->Fill( iTrack.Theta(), E-938.272 );
