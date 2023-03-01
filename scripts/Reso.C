@@ -68,7 +68,7 @@ void reco_angle( TVector3 vtx, int i ){
   rTrack = (v1-v0).Unit();
 }
 
-void Reso(double ang=8., double delta=1.){
+void Reso(double ang=8., double delta=1., double Z_true=-326.5){
 
   h_ang = new TH1F("h_ang",";resolution, mrad;events", 200, -10, 10 );
   h_Tp  = new TH2F("h_Tp" ,";angle, mrad; Tp, MeV", 30, 0, 0.3, 300, 700, 1000 );
@@ -81,10 +81,10 @@ void Reso(double ang=8., double delta=1.){
   int EVENT = 0;
 
   bool good_event = true;
-  TVector3 vtx(0,0,-430.5);
+  TVector3 vtx(0,0,Z_true);
   double true_ang=0.52*0.5236;
 
-  double ang=8.;
+//  double ang=8.;
 
   while( fCSC >> ev >> tr >> st >> vol >> code >> c >> E >> x >> y >> z >> t ){
 
@@ -92,6 +92,8 @@ void Reso(double ang=8., double delta=1.){
 
       while( ev_g!=EVENT ) fGEN >> ev_g >> xi >> yi >> zi >> px >> py >> pz >> p ;
 
+
+      vtx.SetXYZ(xi,yi,zi);
       iTrack.SetXYZ(px,py,pz);
 
       for(int ii=14;ii<18;ii++){ if(xx[ii]==-100.) good_event=false;}

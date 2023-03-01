@@ -49,14 +49,14 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
   psi = G4UniformRand()*2.*3.14159265;
 //  psi = 0.;
-/*
-  do{
-    fVx = G4UniformRand();
-    fVy = G4UniformRand();
-  }
-  while (fVx*fVx + fVy*fVy > 1);
-*/
-  fVx=0.; fVy=0.;
+
+  if(SMEAR_BEAM){
+    do{
+      fVx = G4UniformRand();
+      fVy = G4UniformRand();
+    }
+    while (fVx*fVx + fVy*fVy > 1);
+  } else{ fVx=0.; fVy=0.; };
 
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),cosAlpha));
   fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,VERTEX_POS*mm) );

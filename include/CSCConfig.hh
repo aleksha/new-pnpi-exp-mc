@@ -16,5 +16,6 @@ const double DRIFT_CELL    =  216.;
 //------------------------------------------------------------------------------
 // Beam structure
 //------------------------------------------------------------------------------
-const double VERTEX_POS    =-430.5;
+const double VERTEX_POS    =-326.5; //-376.5,-326.5,-276.5
+const bool   SMEAR_BEAM    =  true; // false/true
 
