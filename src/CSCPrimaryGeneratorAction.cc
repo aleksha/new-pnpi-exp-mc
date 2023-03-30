@@ -60,17 +60,25 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),BEAM_Z_DIRECT*cosAlpha));
   }
   else{
-    fParticleGun->SetParticleMomentumDirection( G4ThreeVector(0.0,0.0,-BEAM_Z_DIRECT*1.0) );
+    fParticleGun->SetParticleMomentumDirection( G4ThreeVector(0.0,0.0,BEAM_Z_DIRECT*(-1.0)) );
   }
   fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,VERTEX_POS*mm) );
 
 
-  if(myGEN.is_open())
-       myGEN << ev_id  << " " <<  fVx*10.  << " " << fVy*10.  << " " << VERTEX_POS << " "
-             << pow(0,ev_id%2)*sinAlpha*std::cos(psi)  << " "
-             << pow(0,ev_id%2)*sinAlpha*std::sin(psi)  << " "
-             << pow(-1,ev_id%2)*BEAM_Z_DIRECT*pow( cosAlpha,(ev_id+1)%2 ) << " " 
+  if(myGEN.is_open()){
+    if( !(ev_id%2) ){
+       myGEN << ev_id  << " " <<  fVx*10. << " " << fVy*10.  << " " << VERTEX_POS << " "
+             << sinAlpha*std::cos(psi)    << " " << sinAlpha*std::sin(psi)  << " "
+             << BEAM_Z_DIRECT*cosAlpha    << " "
              << BEAM_ENERGY << G4endl;
+    }
+    else{
+       myGEN << ev_id  << " " <<  fVx*10. << " " << fVy*10.  << " " << VERTEX_POS << " "
+             << "0.0 0.0 "
+             << BEAM_Z_DIRECT*(-1.0)      << " "
+             << BEAM_ENERGY << G4endl;
+    }
+  }
 
   ev_id++;
   fParticleGun->GeneratePrimaryVertex(anEvent);
