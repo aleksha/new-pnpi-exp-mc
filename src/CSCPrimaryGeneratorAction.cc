@@ -49,7 +49,10 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);
   psi = G4UniformRand()*2.*3.14159265;
 
-  if( !(ev_id%2) ){
+  if( (ev_id%2) ){
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),BEAM_Z_DIRECT*cosAlpha));
+  }
+  else{
     if(SMEAR_BEAM){
       do{
         fVx = G4UniformRand();
@@ -57,16 +60,13 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
       }
       while (fVx*fVx + fVy*fVy > 1);
     } else{ fVx=0.; fVy=0.; };
-    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(sinAlpha*std::cos(psi),sinAlpha*std::sin(psi),BEAM_Z_DIRECT*cosAlpha));
-  }
-  else{
     fParticleGun->SetParticleMomentumDirection( G4ThreeVector(0.0,0.0,BEAM_Z_DIRECT*(-1.0)) );
   }
   fParticleGun->SetParticlePosition( G4ThreeVector(fVx*10.*mm,fVy*10.*mm,VERTEX_POS*mm) );
 
 
   if(myGEN.is_open()){
-    if( !(ev_id%2) ){
+    if( (ev_id%2) ){
        myGEN << ev_id  << " " <<  fVx*10. << " " << fVy*10.  << " " << VERTEX_POS << " "
              << sinAlpha*std::cos(psi)    << " " << sinAlpha*std::sin(psi)  << " "
              << BEAM_Z_DIRECT*cosAlpha    << " "
