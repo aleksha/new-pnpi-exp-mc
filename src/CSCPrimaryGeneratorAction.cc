@@ -43,7 +43,7 @@ void CSCPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 //  fAlpha = 0.; sinAlpha = 0.; cosAlpha = 1.; psi = 0.;
 //  fAlpha = 0.4*0.5236+CLHEP::RandGauss::shoot(0,0.003);
 
-  fAlpha = 0.3*G4UniformRand();
+  if(FIX_SCAT) fAlpha = FIX_ANGLE*0.001; else fAlpha = 0.3*G4UniformRand();
   fAlpha = std::sqrt(fAlpha*fAlpha);
   sinAlpha = std::sin(fAlpha);
   cosAlpha = std::sqrt(1. - sinAlpha*sinAlpha);

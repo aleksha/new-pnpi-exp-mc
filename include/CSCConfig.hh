@@ -22,4 +22,6 @@ const bool   SMEAR_BEAM    =  true; // false/true
 const double BEAM_Z_DIRECT =   1.0; // 1 --> z; -1 --> -z
 const int    BEAM_MODE     =     0; // 1: write beam.data; 2: read beam.data;
                                     // normal overwise
+const bool   FIX_SCAT      =  true; // false/true ; fix sct. angle to FIX_ANGLE
+const double FIX_ANGLE     =   17.; // mrad // 17.4532952 mrad = 1 deg
 //==============================================================================

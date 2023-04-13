@@ -31,6 +31,7 @@ TH1F *h_pos;
 TH1F *h_avg;
 TH1F *h_A;
 TH1F *h_in;
+TH1F *h_in2;
 
 TH1F *h_dR1;
 TH1F *h_dR2;
@@ -115,13 +116,110 @@ void reco_input( int i, int j, int l, int k ){
   rTrack = (v1-v0).Unit();
 }
 
-void Reco(double ang=8., double delta=10., double Z_true=-326.5){
+// 0 1
+// Fixed vtx   : 0.43426 0.0174685
+// Btw. traks  : 1.15537 0.0464757
+// With vertex : 1.68313 0.0677055
+// Avg. vertex : 1.5613 0.0628048
+
+// 1 1
+// Fixed vtx   : 0.396697 0.0167336
+// Btw. traks  : 1.13563 0.0479893
+// With vertex : 1.65852 0.0700851
+// Avg. vertex : 1.54964 0.0654843
+
+// 2 1
+// Fixed vtx   : 0.47882 0.00616308
+// Btw. traks  : 1.1621 0.0149578
+// With vertex : 1.54811 0.019933
+// Avg. vertex : 1.44929 0.0186606
+
+// 3 1
+//Fixed vtx   : 1.26929 0.0483211
+//Btw. traks  : 1.76262 0.0670047
+//With vertex : 2.01034 0.0764215
+//Avg. vertex : 1.90012 0.0722316
+
+// 4 1
+// Fixed vtx   : 1.08001 0.00978038
+// Btw. traks  : 1.47849 0.0133922
+// With vertex : 1.81897 0.0164736
+// Avg. vertex : 1.74299 0.0157854
+
+// 5 1
+// Fixed vtx   : 1.04525 0.00803329
+// Btw. traks  : 1.47624 0.0113476
+// With vertex : 1.78321 0.0137137
+// Avg. vertex : 1.70631 0.0131216
+
+// 6 1
+// Fixed vtx   : 1.06238 0.00813518
+// Btw. traks  : 1.4934 0.0114397
+// With vertex : 1.79874 0.0137868
+// Avg. vertex : 1.73118 0.0132658
+
+// 7 1
+// Fixed vtx   : 1.03695 0.0079568
+// Btw. traks  : 1.44561 0.0110932
+// With vertex : 1.77089 0.0135893
+// Avg. vertex : 1.69048 0.0129746
+
+// 8 1
+// Fixed vtx   : 1.14683 0.00879167
+// Btw. traks  : 1.54173 0.0118231
+// With vertex : 1.84836 0.0141813
+// Avg. vertex : 1.76853 0.0135672
+
+// 9 1
+// Fixed vtx   : 1.17858 0.00908806
+// Btw. traks  : 1.56645 0.0120825
+// With vertex : 1.86415 0.0143805
+// Avg. vertex : 1.79093 0.0138157
+
+// 10 1
+// Fixed vtx   : 1.21251 0.00937368
+// Btw. traks  : 1.60188 0.0123861
+// With vertex : 1.8865 0.0145929
+// Avg. vertex : 1.81602 0.0140469
+
+// 11 1
+// Fixed vtx   : 1.24859 0.00961475
+// Btw. traks  : 1.61268 0.0124243
+// With vertex : 1.89048 0.0145715
+// Avg. vertex : 1.81525 0.0139925
+
+// 12 1
+// Fixed vtx   : 1.27216 0.00973072
+// Btw. traks  : 1.61734 0.012379
+// With vertex : 1.89624 0.0145179
+// Avg. vertex : 1.83266 0.0140295
+
+// 13 1
+// Fixed vtx   : 1.29543 0.00990696
+// Btw. traks  : 1.67787 0.012837
+// With vertex : 1.95278 0.0149456
+// Avg. vertex : 1.87007 0.014315
+
+// 14 1
+// Fixed vtx   : 1.28865 0.00989283
+// Btw. traks  : 1.6524 0.012686
+// With vertex : 1.91683 0.0147213
+// Avg. vertex : 1.8537 0.014234
+
+// 15 1
+// Fixed vtx   : 1.34079 0.0103236
+// Btw. traks  : 1.69271 0.0130394
+// With vertex : 1.95313 0.0150517
+// Avg. vertex : 1.88558 0.0145311
+
+void Reco(double ang=0., double delta=30.0, double Z_true=-326.5){
 
   h_ang = new TH1F("h_ang",";resolution, mrad;events", 200, -10, 10 );
   h_rec = new TH1F("h_rec",";resolution, mrad;events", 200, -10, 10 );
   h_pos = new TH1F("h_pos",";resolution, mrad;events", 200, -10, 10 );
   h_avg = new TH1F("h_avg",";resolution, mrad;events", 200, -10, 10 );
   h_in  = new TH1F("h_in", ";input angle, mrad;events", 200, -1, 19 );
+  h_in2 = new TH1F("h_in2",";input angle, mrad;events", 200, -1, 19 );
   h_A   = new TH1F("h_A",  ";angle, mrad;events", 2000, -1, 1999 );
 
   h_dR1 = new TH1F("h_dR1", ";dist, mm;events", 200, -10, 10 );
@@ -135,9 +233,10 @@ void Reco(double ang=8., double delta=10., double Z_true=-326.5){
 
   h_dR->SetLineColor(2);
 
+  h_in2->SetLineColor(2);
   h_rec->SetLineColor(2);
   h_pos->SetLineColor(1);
-  h_avg->SetLineColor(3);
+  h_avg->SetLineColor(1);
 
   std::ifstream fCSC("./csc.data" , std::ios::in);
   std::ifstream fGEN("./gen.data" , std::ios::in);
@@ -176,15 +275,15 @@ void Reco(double ang=8., double delta=10., double Z_true=-326.5){
             h_ang->Fill( (rTrack.Theta()-iTrack.Theta())*1000. );
             h_rec->Fill( (rTrack.Angle(sTrack)-iTrack.Theta())*1000. );
 
-//            Rand = gRandom->Gaus(0,0.1);
-            Rand = 0.0;
+            Rand = gRandom->Gaus(0,0.1);
+//            Rand = 0.0;
 
             r_vtx = c_ref + ( ( vtx.Z()+Rand - c_ref.Z() ) / sTrack.Z() )*sTrack;
             r_vtx2 = c_ref2 + ( ( vtx.Z()+Rand - c_ref2.Z() ) / sTrack2.Z() )*sTrack2;
 
-            cout << "True : " <<    vtx.x() << " " <<    vtx.y() << " " <<    vtx.z() << "\n";
-            cout << " Rec1: " <<  r_vtx.x() << " " <<  r_vtx.y() << " " <<  r_vtx.z() << "\n";
-            cout << " Rec2: " << r_vtx2.x() << " " << r_vtx2.y() << " " << r_vtx2.z() << "\n\n";
+//            cout << "True : " <<    vtx.x() << " " <<    vtx.y() << " " <<    vtx.z() << "\n";
+//            cout << " Rec1: " <<  r_vtx.x() << " " <<  r_vtx.y() << " " <<  r_vtx.z() << "\n";
+//            cout << " Rec2: " << r_vtx2.x() << " " << r_vtx2.y() << " " << r_vtx2.z() << "\n\n";
 
             h_dR1->Fill( (vtx-r_vtx).Mag() );
             h_dR2->Fill( (vtx-r_vtx2).Mag() );
@@ -211,10 +310,11 @@ void Reco(double ang=8., double delta=10., double Z_true=-326.5){
           reco_input( 0, 4, 2, 6 );
           h_in->Fill(rTrack.Theta()*1000.);
           sTrack = rTrack;
+          Temp = rTrack;
           c_ref = TVector3(xx[6],yy[6],zz[6]);
 
           reco_input( 1, 5, 3, 7 );
- //         h_in->Fill(rTrack.Theta()*1000.);
+          h_in2->Fill(0.5*(rTrack.Theta() + Temp.Theta() )*1000.);
           sTrack2 = rTrack;
           c_ref2 = TVector3(xx[7],yy[7],zz[7]);
 
@@ -235,10 +335,10 @@ void Reco(double ang=8., double delta=10., double Z_true=-326.5){
   fCSC.close();
   fGEN.close();
 
-  h_avg->SetFillColor(3);
+  h_avg->SetFillColor(1);
   h_avg->SetFillStyle(3005);
 
-  h_ang->Draw();  h_rec->Draw("same"); h_pos->Draw("same"); h_avg->Draw("same");
+  h_ang->Draw();  h_rec->Draw("same"); h_avg->Draw("same"); //h_avg->Draw("same");
   //h_avg->Draw();
   //h_in->Draw();
   //h_A->Draw();
